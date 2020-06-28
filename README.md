@@ -1,1 +1,1 @@
-# KafkaAccelerator
+# KafkaProducerConsumer
