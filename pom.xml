@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.3.2.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.hbi.customerretention</groupId>
+	<artifactId>hbi-siebel-adapter-service</artifactId>
+	<version>local</version>
+	<name>siebel-adapter-service</name>
+	<description>Demo project for Siebel Adapter Service</description>
+
+	<properties>
+	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>11</java.version>
+		<maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.release>11</maven.compiler.release>
+		<spring-cloud.version>Hoxton.SR6</spring-cloud.version>
+		<checkstyle-maven-plugin.version>3.0.0</checkstyle-maven-plugin.version>
+        <pmd-maven-plugin.version>3.12.0</pmd-maven-plugin.version>
+        <dockerfile-maven-plugin.version>1.4.10</dockerfile-maven-plugin.version>
+        <hbi-build-tools.version>1.0.51</hbi-build-tools.version>
+        <org.projectlombok.version>1.18.10</org.projectlombok.version>
+         <org.mapstruct.version>1.3.1.Final</org.mapstruct.version>
+        <validation-api.version>2.0.1.Final</validation-api.version>
+        <commons-lang.version>3.8.1</commons-lang.version>
+	</properties>
+ 
+ <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-stream</artifactId>
+		</dependency>
+		 <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-core</artifactId>
+        </dependency>
+		<dependency>
+		    <groupId>org.springframework.integration</groupId>
+		    <artifactId>spring-integration-ws</artifactId>
+		    <version>5.3.2.RELEASE</version>
+		</dependency>
+		<dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${org.mapstruct.version}</version>
+        </dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+		<!--  <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency> -->
+	<!-- Commented to add application context for unit test case -->
+	<!-- 	<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-stream-test-support</artifactId>
+			<scope>test</scope>
+		</dependency> -->
+		<dependency>
+		    <groupId>org.springframework.cloud</groupId>
+		    <artifactId>spring-cloud-stream</artifactId>
+		    <type>test-jar</type>
+		    <scope>test</scope>
+		    <classifier>test-binder</classifier>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-stream-binder-kafka-streams</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-stream-binder-kafka</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web-services</artifactId>
+		</dependency>
+		<!-- pulls in wss4j-ws-security-dom:2.2.0 -->
+        <dependency>
+            <groupId>org.springframework.ws</groupId>
+            <artifactId>spring-ws-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.ws</groupId>
+            <artifactId>spring-ws-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.ws</groupId>
+            <artifactId>spring-ws-support</artifactId>
+        </dependency>
+        <dependency>
+			<groupId>wsdl4j</groupId>
+			<artifactId>wsdl4j</artifactId>
+		</dependency>
+         <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- Start dependency from dto -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-xml</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>${validation-api.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- End dependency from dto -->
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-core</artifactId>
+            <version>2.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>2.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.xml.ws</groupId>
+            <artifactId>jaxws-api</artifactId>
+            <version>2.3.1</version>
+        </dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.6</version>
+			<optional>true</optional>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+		<!-- Adding plugin for test cases -->
+		    <plugin>
+		        <groupId>org.apache.maven.plugins</groupId>
+		        <artifactId>maven-jar-plugin</artifactId>
+		        <executions>
+			    <execution>
+				<configuration>
+				    <includes>
+					 <include>**/integration/*</include>
+				    </includes>
+				    <classifier>test-binder</classifier>
+				</configuration>
+		                <goals>
+		                    <goal>test-jar</goal>
+		                </goals>
+		            </execution>
+		        </executions>
+		    </plugin>
+			
+
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.source}</target>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${org.mapstruct.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${org.projectlombok.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+		
+			<plugin>
+                <groupId>org.jvnet.jaxb2.maven2</groupId>
+                <artifactId>maven-jaxb2-plugin</artifactId>
+                <version>0.13.2</version>
+                <executions>
+					  <execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+                    </execution>
+                </executions>
+                <configuration>
+                <!-- <packageName>com.hbi.customerretention.soap</packageName>
+                	<sources>
+                		<source>${project.basedir}/src/main/resources/schemas/HBRDigitalRFLEnrollment.xsd</source>
+                	</sources> -->
+                    <schemaLanguage>WSDL</schemaLanguage>
+                    <generatePackage>com.hbi.customerretention.soap</generatePackage>
+                    <schemas>
+                        <schema>
+                            <fileset>
+                                Defaults to schemaDirectory.
+                                <directory>${project.basedir}/src/main/resources/schemas</directory>
+                                Defaults to schemaIncludes.
+                                <includes>
+                                    <include>*.xsd</include>
+                                </includes>
+                                Defaults to schemaIncludes
+                                <excludes>
+                                    <exclude>*.wsdl</exclude>
+                                </excludes>
+                            </fileset>
+                        </schema>
+                    </schemas>
+                </configuration>
+            </plugin>
+		</plugins>
+		<finalName>hbi-siebel-adapter-service</finalName>
+	</build>
+</project>
